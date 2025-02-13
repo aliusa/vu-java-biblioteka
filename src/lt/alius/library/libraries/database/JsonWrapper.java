@@ -135,13 +135,17 @@ public class JsonWrapper extends DatabaseWrapper {
             jsonData.put(tableName, list);
 
 
-            // Write updated data back to the file
-            try {
-                objectMapper.enable(SerializationFeature.INDENT_OUTPUT).writerWithDefaultPrettyPrinter().writeValue(file, jsonData);
-            } catch (IOException e) {
-                System.out.println("Error writing to file " + FILE_NAME);
-                throw new RuntimeException(e);
-            }
+            //Save to file in thread
+            Thread  thread = new Thread(() -> {
+                // Write updated data back to the file
+                try {
+                    objectMapper.enable(SerializationFeature.INDENT_OUTPUT).writerWithDefaultPrettyPrinter().writeValue(file, jsonData);
+                } catch (IOException e) {
+                    System.out.println("Error writing to file " + FILE_NAME);
+                    throw new RuntimeException(e);
+                }
+            });
+            thread.start();
         }
     }
 
