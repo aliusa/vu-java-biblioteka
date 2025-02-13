@@ -1,162 +1,158 @@
 package lt.alius.library.libraries.database;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import lt.alius.library.libraries.BaseEntity;
 import lt.alius.library.libraries.Entity;
+import lt.alius.library.libraries.EntityArrayList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class JsonWrapper extends DatabaseWrapper {
     private static final String FILE_NAME = "database.json";
     private static final ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-    // Universalus metodas gauti sąrašą pagal klasę
-    @Override
-    public <T extends BaseEntity> ArrayList<T> getList(Class<T> type) {
+    protected <T extends BaseEntity> Map<String, Object> getJsonData(Class<T> entityClass) {
         File file = new File(FILE_NAME);
-        if (!file.exists()) return new ArrayList<>(); // Return empty list if file doesn't exist
+        if (!file.exists()) return null; // Return empty list if file doesn't exist
 
         try {
-            // Read the entire JSON file as a map
-            Map<String, Object> jsonData = objectMapper.readValue(file, new TypeReference<Map<String, Object>>() {
-            });
 
-            // Get the table name from the @Entity annotation
-            String tableName = getTableName(type);
-
-            // Extract the correct list from the JSON map
-            Object rawList = jsonData.get(tableName);
-
-            if (rawList instanceof List<?>) {
-                List<?> list = (List<?>) rawList;
-                ArrayList<T> entityList = new ArrayList<>();
-
-                // Convert each entry to the correct entity type
-                for (Object item : list) {
-                    T entity = objectMapper.convertValue(item, type);
-                    entityList.add(entity);
-                }
-                return entityList;
+            Map<String, Object> jsonData = Map.of();
+            if (file.length() > 0) {
+                // Read the entire JSON file as a map
+                jsonData = objectMapper.readValue(file, new TypeReference<Map<String, Object>>() {
+                });
             }
+
+            return jsonData;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             //
         }
-        return new ArrayList<>();
+        return null;
+    }
+
+    protected <T extends BaseEntity> Object getUnmappedList(Class<T> entityClass) {
+        Map<String, Object> jsonData = getJsonData(entityClass);
+
+        // Get the table name from the @Entity annotation
+        String tableName = getTableName(entityClass);
+
+        // Extract the correct list from the JSON map
+        return jsonData.get(tableName);
+    }
+
+    protected <T extends BaseEntity> EntityArrayList<T> getMappedList(Class<T> entityClass) {
+        Object rawList = getUnmappedList(entityClass);
+
+        if (rawList instanceof List<?>) {
+            List<?> list = (List<?>) rawList;
+            EntityArrayList<T> entityList = new EntityArrayList<>();
+
+            // Convert each entry to the correct entity entityClass
+            for (Object item : list) {
+                T entity = (T) objectMapper.convertValue(item, entityClass);
+                entityList.add(entity);
+            }
+            return entityList;
+        }
+        return new EntityArrayList<>();
+    }
+
+    /**
+     * Gauti sąrašą pagal entity.
+     *
+     * @param entityClass
+     * @return
+     * @param <T>
+     */
+    @Override
+    public <T extends BaseEntity> EntityArrayList<T> getList(Class<T> entityClass) {
+        return getMappedList(entityClass);
     }
 
     // Metodas automatiškai paimti tableName iš @Entity anotacijos
-    private static <T extends BaseEntity> String getTableName(Class<T> type) {
-        Entity entityAnnotation = type.getAnnotation(Entity.class);
+    private static <T extends BaseEntity> String getTableName(Class<T> entityClass) {
+        Entity entityAnnotation = entityClass.getAnnotation(Entity.class);
         if (entityAnnotation == null) {
-            throw new IllegalArgumentException("Class " + type.getSimpleName() + " must be annotated with @Entity");
+            throw new IllegalArgumentException("Class " + entityClass.getSimpleName() + " must be annotated with @Entity");
         }
         return entityAnnotation.tableName();
     }
 
-    // Metodas pridėti objektą automatiškai nustatant tableName
+    /**
+     * Gauti paskutinį ID arba `null`.
+     *
+     * @param entityClass
+     * @return
+     * @param <T>
+     * @throws FileNotFoundException
+     */
     @Override
-    public <T extends BaseEntity> void add(T entity) throws FileNotFoundException {
-
-        //todo generate ID
-
-        List<T> master = new ArrayList<T>();
-
-        String tableName = getTableName(entity.getClass());
-        System.out.println(tableName);
-        //List<T> list = getList(entity.getClass()); // Sukuriame naują sąrašą, kad būtų galima keisti
-        //list.add(entity);
-        //save(tableName, list);
-
-        File file = new File(FILE_NAME);
-        if (!file.exists()) {
-            throw new FileNotFoundException();
+    public <T extends BaseEntity> Integer getLastId(Class<T> entityClass) throws FileNotFoundException {
+        var items = getList(entityClass);
+        if (items.isEmpty()) {
+            return 1;
         }
-
-        try {
-            List<T> list = objectMapper.readValue(file, new TypeReference<List<T>>() {});
-            System.out.println(objectMapper.writerWithDefaultPrettyPrinter());
-
-        } catch (JsonParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        var classe = entity.getClass();
-        //add to end of older list
-        //UsersItem tempList = new UsersItem();//saugo
-        //tempList.setStore(store);
-        //tempList.setItems(items);
-
-
-        master.add((T) entity);
-
-        //try {
-        try {
-            objectMapper.writeValue(file, master);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        //} catch (JsonGenerationException e) {
-        //    e.printStackTrace();
-        //} catch (JsonMappingException e) {
-        //    e.printStackTrace();
-        //} catch (IOException e) {
-        //    e.printStackTrace();
-        //}
+        T item = items.get(items.size() - 1);
+        return item.id;
     }
 
-    // Universalus metodas išsaugoti duomenis į failą
-    /*private static void save(String tableName, List<? extends BaseEntity> list) {
-        File file = new File(FILE_NAME);
-        LibraryDatabase databaseData;
+    @Override
+    public <T extends BaseEntity> void add(T entity) throws FileNotFoundException {
+        Map<String, Object> jsonData = getJsonData(entity.getClass());
+        if (jsonData.size() > 0) {
+            File file = new File(FILE_NAME);
 
-        if (file.exists()) {
-            try {
-                databaseData = objectMapper.readValue(file, LibraryDatabase.class);
-            } catch (IOException e) {
-                e.printStackTrace();
-                databaseData = new LibraryDatabase();
+            String tableName = getTableName(entity.getClass());
+            EntityArrayList<T> list = new EntityArrayList<T>();
+            if (jsonData.containsKey(tableName) && jsonData.get(tableName) instanceof List<?>) {
+                ArrayList<T> rawList = (ArrayList<T>) jsonData.get(tableName);
+                if (rawList instanceof List<?>) {
+                    // Convert each entry to the correct entity entityClass
+                    for (Object item : rawList) {
+                        T entity2 = (T) objectMapper.convertValue(item, entity.getClass());
+                        list.add(entity2);
+                    }
+                }
+            } else {
+                list = new EntityArrayList<T>();
             }
-        } else {
-            databaseData = new LibraryDatabase();
-        }
+            int newId = list.isEmpty() ? 1 : list.get(list.size() - 1).id + 1;
+            entity.id = newId;
+            var formattedDatetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            entity.created_at = formattedDatetime;
+            entity.updated_at = formattedDatetime;
+            list.add(entity);
+            jsonData.put(tableName, list);
 
-        Map<String, List<? extends BaseEntity>> data = databaseData.getData();
-        data.put(tableName, list);
-        //databaseData.setData(data);
 
-        try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, databaseData);
-        } catch (IOException e) {
-            e.printStackTrace();
+            // Write updated data back to the file
+            try {
+                objectMapper.enable(SerializationFeature.INDENT_OUTPUT).writerWithDefaultPrettyPrinter().writeValue(file, jsonData);
+            } catch (IOException e) {
+                System.out.println("Error writing to file " + FILE_NAME);
+                throw new RuntimeException(e);
+            }
         }
-    }/**/
+    }
 
     @Override
-    public <T extends BaseEntity> void remove(T entity, int id) throws FileNotFoundException {
-        List<T> master = new ArrayList<T>();
+    public <T extends BaseEntity> void remove(Class<T> entityClass, int id) throws FileNotFoundException {
+        EntityArrayList<T> master = new EntityArrayList<T>();
 
-        String tableName = getTableName(entity.getClass());
+        String tableName = getTableName(entityClass);
         System.out.println(tableName);
-        //List<T> list = getList(entity.getClass()); // Sukuriame naują sąrašą, kad būtų galima keisti
-        //list.add(entity);
+        //List<T> list = getList(entityClass.getClass()); // Sukuriame naują sąrašą, kad būtų galima keisti
+        //list.add(entityClass);
         //save(tableName, list);
 
         File file = new File(FILE_NAME);
@@ -168,9 +164,9 @@ public class JsonWrapper extends DatabaseWrapper {
     }
 
     // Universalus metodas rasti objektą pagal ID
-    public <T extends BaseEntity> Optional<T> getById(int id, Class<T> type) {
-        return getList(type).stream()
-                .filter(entity -> entity.getId() == id)
+    public <T extends BaseEntity> Optional<T> getById(Class<T> entityClass, int id) {
+        return getList(entityClass).stream()
+                .filter(entity -> entity.id == id)
                 .findFirst();
     }
 }

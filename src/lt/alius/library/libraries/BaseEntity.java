@@ -1,9 +1,9 @@
 package lt.alius.library.libraries;
 
-public abstract class BaseEntity {
-    protected Integer id = null;
+import java.util.Date;
 
-    public int getId() {
-        return id;
-    }
+public abstract class BaseEntity {
+    public Integer id = null;
+    public String created_at = null;
+    public String updated_at = null;
 }

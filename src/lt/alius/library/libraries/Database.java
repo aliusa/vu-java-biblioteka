@@ -4,7 +4,6 @@ import lt.alius.library.libraries.database.JsonWrapper;
 import lt.alius.library.libraries.interfaces.DataStorage;
 
 import java.io.FileNotFoundException;
-import java.util.*;
 
 public class Database implements DataStorage {
     private static Database instance;
@@ -23,8 +22,8 @@ public class Database implements DataStorage {
         return instance;
     }
 
-    public <T extends BaseEntity> ArrayList<T> getList(Class<T> type) {
-        return getInstance().jsonWrapper.getList(type);
+    public <T extends BaseEntity> EntityArrayList<T> getList(Class<T> entityClass) {
+        return getInstance().jsonWrapper.getList(entityClass);
     }
 
     /**
@@ -54,13 +53,13 @@ public class Database implements DataStorage {
 
     /**
      * Remove entity from JSON file
-     * @param entity
+     * @param entityClass
      * @param id
      * @param <T>
      * @throws FileNotFoundException
      */
     @Override
-    public <T extends BaseEntity> void remove(T entity, int id) throws FileNotFoundException {
-        getInstance().jsonWrapper.remove(entity, id);
+    public <T extends BaseEntity> void remove(Class<T> entityClass, int id) throws FileNotFoundException {
+        getInstance().jsonWrapper.remove(entityClass, id);
     }
 }

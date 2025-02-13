@@ -1,70 +1,155 @@
 {
-    "users_items": [
-        {
-            "id": 1,
-            "email": "jonas@example.lt",
-            "phone": "+37064425411",
-            "booksAllowedToLend": -1,
-            "created_at": "2025-02-10 02:20",
-            "updated_at": "2025-02-10 02:20"
-        },
-        {
-            "id": 2,
-            "email": "petras@example.lt",
-            "phone": "+37064425412",
-            "booksAllowedToLend": -1,
-            "created_at": "2025-02-10 02:20",
-            "updated_at": "2025-02-10 02:20"
-        },
-        {
-            "id": 3,
-            "email": "aldona@example.lt",
-            "phone": "+37064425413",
-            "booksAllowedToLend": -1,
-            "created_at": "2025-02-10 02:20",
-            "updated_at": "2025-02-10 02:20"
-        },
-        {
-            "id": 4,
-            "email": "one@example.lt",
-            "phone": "+37064425414",
-            "booksAllowedToLend": -1,
-            "created_at": "2025-02-10 02:20",
-            "updated_at": "2025-02-10 02:20"
-        },
-        {
-            "id": 5,
-            "email": "albinas@example.lt",
-            "phone": "+37064425415",
-            "booksAllowedToLend": -1,
-            "created_at": "2025-02-10 02:20",
-            "updated_at": "2025-02-10 02:20"
-        }
-    ],
-    "books_items": [
-        {
-            "id": 1,
-            "title": "Pirma kynga",
-            "isbn": "978-0-306-40615-1",
-            "pages": 15,
-            "created_at": "2025-02-10 02:20",
-            "updated_at": "2025-02-10 02:20"
-        },
-        {
-            "id": 2,
-            "title": "Antra kynga",
-            "isbn": "978-0-306-40615-2",
-            "pages": 15,
-            "created_at": "2025-02-10 02:20",
-            "updated_at": "2025-02-10 02:20"
-        }
-    ],
-    "books_items_copy": [
-        {
-            "id": 1,
-            "books_items_id": 1,
-            "created_at": "2025-02-10 02:20",
-            "updated_at": "2025-02-10 02:20"
-        }
-    ]
+  "users_items" : [ {
+    "id" : 1,
+    "email" : "jonas@example.lt",
+    "phone" : "+37064425411",
+    "booksAllowedToLend" : -1,
+    "created_at" : "2025-02-10 02:20:32",
+    "updated_at" : "2025-02-10 02:20:32"
+  }, {
+    "id" : 2,
+    "email" : "petras@example.lt",
+    "phone" : "+37064425412",
+    "booksAllowedToLend" : -1,
+    "created_at" : "2025-02-10 02:20:32",
+    "updated_at" : "2025-02-10 02:20:32"
+  }, {
+    "id" : 3,
+    "email" : "aldona@example.lt",
+    "phone" : "+37064425413",
+    "booksAllowedToLend" : -1,
+    "created_at" : "2025-02-10 02:20:32",
+    "updated_at" : "2025-02-10 02:20:32"
+  }, {
+    "id" : 4,
+    "email" : "one@example.lt",
+    "phone" : "+37064425414",
+    "booksAllowedToLend" : -1,
+    "created_at" : "2025-02-10 02:20:32",
+    "updated_at" : "2025-02-10 02:20:32"
+  }, {
+    "id" : 5,
+    "email" : "albinas@example.lt",
+    "phone" : "+37064425415",
+    "booksAllowedToLend" : -1,
+    "created_at" : "2025-02-10 02:20:32",
+    "updated_at" : "2025-02-10 02:20:32"
+  } ],
+  "books_items" : [ {
+    "id" : 1,
+    "created_at" : "2025-02-10 02:20:32",
+    "updated_at" : "2025-02-10 02:20:32",
+    "title" : "Pirma kynga",
+    "isbn" : "978-0-326-40315-1",
+    "pages" : 41,
+    "booksItemCopies" : null,
+    "lendedNowCount" : 0,
+    "lendable" : false
+  }, {
+    "id" : 2,
+    "created_at" : "2025-02-10 02:20:32",
+    "updated_at" : "2025-02-10 02:20:32",
+    "title" : "Antra kynga",
+    "isbn" : "978-0-701-40215-2",
+    "pages" : 32,
+    "booksItemCopies" : null,
+    "lendedNowCount" : 0,
+    "lendable" : false
+  }, {
+    "id" : 3,
+    "created_at" : "2025-02-10 02:20:32",
+    "updated_at" : "2025-02-10 02:20:32",
+    "title" : "Trečia kynga",
+    "isbn" : "978-0-156-45615-3",
+    "pages" : 93,
+    "booksItemCopies" : null,
+    "lendedNowCount" : 0,
+    "lendable" : false
+  }, {
+    "id" : 4,
+    "created_at" : "2025-02-10 02:20:32",
+    "updated_at" : "2025-02-10 02:20:32",
+    "title" : "Ketvirta kynga",
+    "isbn" : "978-0-601-40612-4",
+    "pages" : 74,
+    "booksItemCopies" : null,
+    "lendedNowCount" : 0,
+    "lendable" : false
+  }, {
+    "id" : 5,
+    "created_at" : "2025-02-13 03:08:49",
+    "updated_at" : "2025-02-13 03:08:49",
+    "title" : "Book Title 1280927220",
+    "isbn" : "02-865-46-4",
+    "pages" : 15,
+    "booksItemCopies" : null,
+    "lendedNowCount" : 0,
+    "lendable" : false
+  }, {
+    "id" : 6,
+    "created_at" : "2025-02-13 03:11:34",
+    "updated_at" : "2025-02-13 03:11:34",
+    "title" : "Book Title 28339921",
+    "isbn" : "91-951-34-9",
+    "pages" : 15,
+    "booksItemCopies" : null,
+    "lendedNowCount" : 0,
+    "lendable" : false
+  }, {
+    "id" : 7,
+    "created_at" : "2025-02-13 03:16:13",
+    "updated_at" : "2025-02-13 03:16:13",
+    "title" : "Book Title 1177516012",
+    "isbn" : "67-466-44-0",
+    "pages" : 15,
+    "booksItemCopies" : null,
+    "lendedNowCount" : 0,
+    "lendable" : false
+  }, {
+    "id" : 8,
+    "created_at" : "2025-02-13 03:16:14",
+    "updated_at" : "2025-02-13 03:16:14",
+    "title" : "Book Title 1666577707",
+    "isbn" : "65-859-64-4",
+    "pages" : 15,
+    "booksItemCopies" : null,
+    "lendedNowCount" : 0,
+    "lendable" : false
+  }, {
+    "id" : 9,
+    "created_at" : "2025-02-13 03:16:15",
+    "updated_at" : "2025-02-13 03:16:15",
+    "title" : "Book Title 975457494",
+    "isbn" : "46-876-01-4",
+    "pages" : 15,
+    "booksItemCopies" : null,
+    "lendedNowCount" : 0,
+    "lendable" : false
+  }, {
+    "id" : 10,
+    "created_at" : "2025-02-13 03:17:46",
+    "updated_at" : "2025-02-13 03:17:46",
+    "title" : "Book Title 2101590567",
+    "isbn" : "93-546-31-6",
+    "pages" : 15,
+    "booksItemCopies" : null,
+    "lendedNowCount" : 0,
+    "lendable" : false
+  }, {
+    "id" : 11,
+    "created_at" : "2025-02-13 03:17:48",
+    "updated_at" : "2025-02-13 03:17:48",
+    "title" : "Book Title 1381748723",
+    "isbn" : "04-170-15-6",
+    "pages" : 15,
+    "booksItemCopies" : null,
+    "lendedNowCount" : 0,
+    "lendable" : false
+  } ],
+  "books_items_copy" : [ {
+    "id" : 1,
+    "books_items_id" : 1,
+    "created_at" : "2025-02-10 02:20:32",
+    "updated_at" : "2025-02-10 02:20:32"
+  } ]
 }

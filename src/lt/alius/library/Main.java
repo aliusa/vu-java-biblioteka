@@ -8,6 +8,7 @@ package lt.alius.library;
 import lt.alius.library.entities.BooksItem;
 import lt.alius.library.entities.UsersItem;
 import lt.alius.library.libraries.Database;
+import lt.alius.library.libraries.EntityArrayList;
 import lt.alius.library.libraries.Runnable;
 import lt.alius.library.libraries.Utilities;
 
@@ -40,36 +41,38 @@ public class Main {
         String response = scanner.next();
         switch (response) {
             case "1":
-                ArrayList<BooksItem> booksItems = Database.getInstance().getList(BooksItem.class);
-                //System.out.println(Arrays.toString(booksItems.toArray()));//combine all books to single string
+                EntityArrayList<BooksItem> booksItems = Database.getInstance().getList(BooksItem.class);
+                System.out.println(Arrays.toString(booksItems.toArray()));//combine all books to single string
                 //for (BooksItem booksItem : booksItems) {
                 //    System.out.println(booksItem.toString());
                 //}
-                System.out.printf("-".repeat(55) + "%n");
-                System.out.printf("| %-4s | %-24s | %-17s |%n", "ID", "Pavadinimas", "ISBN");
-                System.out.printf("-".repeat(55) + "%n");
+                System.out.printf("%n%n");
+
+                System.out.printf("-".repeat(57) + "%n");
+                System.out.printf("| %-4s | %-26s | %-17s |%n", "ID", "Pavadinimas", "ISBN");
+                System.out.printf("-".repeat(57) + "%n");
                 for (BooksItem booksItem : booksItems) {
-                    System.out.printf("| %-4s | %-24s | %-17s |%n", booksItem.getId(), booksItem.title, booksItem.isbn);
+                    System.out.printf("| %-4s | %-26s | %-17s |%n", booksItem.id, booksItem.title, booksItem.isbn);
                 }
-                System.out.printf("-".repeat(55));
+                System.out.printf("-".repeat(57));
 
                 break;
             case "2":
-                ArrayList<UsersItem> usersItems = Database.getInstance().getList(UsersItem.class);
+                EntityArrayList<UsersItem> usersItems = Database.getInstance().getList(UsersItem.class);
                 //System.out.println(Arrays.toString(usersItems.toArray()));
                 System.out.printf("-".repeat(50) + "%n");
                 System.out.printf("| %-4s | %-24s | %-12s |%n", "ID", "el.paštas", "tel.");
                 System.out.printf("-".repeat(50) + "%n");
                 for (UsersItem usersItem : usersItems) {
                     //System.out.println(usersItem.toString());
-                    System.out.printf("| %-4s | %-24s | %-12s |%n", usersItem.getId(), usersItem.email, usersItem.phone);
+                    System.out.printf("| %-4s | %-24s | %-12s |%n", usersItem.id, usersItem.email, usersItem.phone);
                 }
                 System.out.printf("-".repeat(50));
                 break;
             case "3":
                 booksItems = Database.getInstance().getList(BooksItem.class);
                 for (BooksItem booksItem1 : booksItems) {
-                    System.out.printf("#%s - %s%n", booksItem1.getId(), booksItem1.getLendedNowCount());
+                    System.out.printf("#%s - %s%n", booksItem1.id, booksItem1.getLendedNowCount());
                 }
                 System.out.println("Dabar išduotų knygų kiekis: ");//todo
                 break;
@@ -78,12 +81,13 @@ public class Main {
                 booksItem.title = "Book Title " + new Random().nextInt(1000, Integer.MAX_VALUE);
                 booksItem.isbn = Utilities.generateIsbn();
                 booksItem.pages = 15;
-                System.out.println(booksItem);
                 try {
                     Database.getInstance().add(booksItem);
                 } catch (FileNotFoundException e) {
                     //throw new RuntimeException(e);
+                    System.out.println("Failed to add BooksItem to JSON.");
                 } finally {
+                    System.out.println(booksItem);
                     System.out.println("Database operation completed.");
                     booksItem = null;
                 }

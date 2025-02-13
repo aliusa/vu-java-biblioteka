@@ -68,11 +68,10 @@ Singleton - `Database`
 * naudoti komandine eilute paduotus parametrus<br/>
 `Main.java`
 * naudotų bent dvi iš šių Java kalbos galimybių<br/>
-  ...
 * generines klases (generics): programa turi ne tik jas naudoti, bet ir aprašyti bent vieną klasę, kuri turėtų tipo kintąmąjį ir bent vieną metodą, kuris turėtų tipo kintamąjį, kuris nebūtų klasės kintamasis;<br/>
- ...
+`EntityArrayList::toArray()` -> `Main.java`
 * įvedimo/išvedimo srautai: programa turi turėti galimybę skaityti duomenis iš failo ir juos rašyti į failą;<br/>
-~~
+`JsonWrapper.java` iš/į `database.json`
 * funkcinio programavimo elementai: programa turi naudoti lambda skaičiavimų sintaksę ir srautų objektus (java.util.Stream);<br/>
 `Main.java`
 * daugiagijiškumas: programoje turi būti kuriamos bent kelios papildomos gijos, jos turi vienu metu naudoti bendrą atmintį ir naudodamos ją rakinti;<br/>

@@ -5,66 +5,82 @@
             "email": "jonas@example.lt",
             "phone": "+37064425411",
             "booksAllowedToLend": -1,
-            "created_at": "2025-02-10 02:20",
-            "updated_at": "2025-02-10 02:20"
+            "created_at": "2025-02-10 02:20:32",
+            "updated_at": "2025-02-10 02:20:32"
         },
         {
             "id": 2,
             "email": "petras@example.lt",
             "phone": "+37064425412",
             "booksAllowedToLend": -1,
-            "created_at": "2025-02-10 02:20",
-            "updated_at": "2025-02-10 02:20"
+            "created_at": "2025-02-10 02:20:32",
+            "updated_at": "2025-02-10 02:20:32"
         },
         {
             "id": 3,
             "email": "aldona@example.lt",
             "phone": "+37064425413",
             "booksAllowedToLend": -1,
-            "created_at": "2025-02-10 02:20",
-            "updated_at": "2025-02-10 02:20"
+            "created_at": "2025-02-10 02:20:32",
+            "updated_at": "2025-02-10 02:20:32"
         },
         {
             "id": 4,
             "email": "one@example.lt",
             "phone": "+37064425414",
             "booksAllowedToLend": -1,
-            "created_at": "2025-02-10 02:20",
-            "updated_at": "2025-02-10 02:20"
+            "created_at": "2025-02-10 02:20:32",
+            "updated_at": "2025-02-10 02:20:32"
         },
         {
             "id": 5,
             "email": "albinas@example.lt",
             "phone": "+37064425415",
             "booksAllowedToLend": -1,
-            "created_at": "2025-02-10 02:20",
-            "updated_at": "2025-02-10 02:20"
+            "created_at": "2025-02-10 02:20:32",
+            "updated_at": "2025-02-10 02:20:32"
         }
     ],
     "books_items": [
         {
             "id": 1,
             "title": "Pirma kynga",
-            "isbn": "978-0-306-40615-1",
-            "pages": 15,
-            "created_at": "2025-02-10 02:20",
-            "updated_at": "2025-02-10 02:20"
+            "isbn": "978-0-326-40315-1",
+            "pages": 41,
+            "created_at": "2025-02-10 02:20:32",
+            "updated_at": "2025-02-10 02:20:32"
         },
         {
             "id": 2,
             "title": "Antra kynga",
-            "isbn": "978-0-306-40615-2",
-            "pages": 15,
-            "created_at": "2025-02-10 02:20",
-            "updated_at": "2025-02-10 02:20"
+            "isbn": "978-0-701-40215-2",
+            "pages": 32,
+            "created_at": "2025-02-10 02:20:32",
+            "updated_at": "2025-02-10 02:20:32"
+        },
+        {
+            "id": 3,
+            "title": "Trečia kynga",
+            "isbn": "978-0-156-45615-3",
+            "pages": 93,
+            "created_at": "2025-02-10 02:20:32",
+            "updated_at": "2025-02-10 02:20:32"
+        },
+        {
+            "id": 4,
+            "title": "Ketvirta kynga",
+            "isbn": "978-0-601-40612-4",
+            "pages": 74,
+            "created_at": "2025-02-10 02:20:32",
+            "updated_at": "2025-02-10 02:20:32"
         }
     ],
     "books_items_copy": [
         {
             "id": 1,
             "books_items_id": 1,
-            "created_at": "2025-02-10 02:20",
-            "updated_at": "2025-02-10 02:20"
+            "created_at": "2025-02-10 02:20:32",
+            "updated_at": "2025-02-10 02:20:32"
         }
     ]
 }

@@ -7,5 +7,5 @@ import java.io.FileNotFoundException;
 public interface DataStorage {
     public <T extends BaseEntity> void add(T entity) throws FileNotFoundException;
     public <T extends BaseEntity> void save(T entity) throws FileNotFoundException;
-    public <T extends BaseEntity> void remove(T entity, int id) throws FileNotFoundException;
+    public <T extends BaseEntity> void remove(Class<T> entityClass, int id) throws FileNotFoundException;
 }
