@@ -2,14 +2,17 @@ package lt.alius.library.entities;
 
 import lt.alius.library.libraries.BaseEntity;
 import lt.alius.library.libraries.Entity;
+import lt.alius.library.libraries.EntityArrayList;
 import lt.alius.library.libraries.interfaces.Identifiable;
-import lt.alius.library.libraries.interfaces.Timestampable;
 
+/**
+ * Turinio naudotojo entity.
+ */
 @Entity(tableName = "users_items")
-public class UsersItem  extends BaseEntity implements Timestampable, Identifiable {
+public class UsersItem  extends BaseEntity implements Identifiable {
     public String email;
     public String phone;
-    private BooksLend[] booksLends;
+    private EntityArrayList<BooksLend> booksLends;
     public int booksAllowedToLend = -1;
 
     @Override

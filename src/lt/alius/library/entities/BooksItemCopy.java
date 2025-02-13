@@ -3,10 +3,12 @@ package lt.alius.library.entities;
 import lt.alius.library.libraries.BaseEntity;
 import lt.alius.library.libraries.BookQuality;
 import lt.alius.library.libraries.Entity;
-import lt.alius.library.libraries.interfaces.Timestampable;
 
+/**
+ * Knygos kopijos entity.
+ */
 @Entity(tableName = "books_items_copy")
-public class BooksItemCopy extends BaseEntity implements Timestampable {
+public class BooksItemCopy extends BaseEntity {
     public BooksItem booksItem;
     //public UsersItem usersItem;
     public BooksLend[] booksLends;

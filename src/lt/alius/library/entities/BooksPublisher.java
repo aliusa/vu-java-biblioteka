@@ -2,10 +2,12 @@ package lt.alius.library.entities;
 
 import lt.alius.library.libraries.BaseEntity;
 import lt.alius.library.libraries.Entity;
-import lt.alius.library.libraries.interfaces.Timestampable;
 
+/**
+ * Knygos leidėjo entity.
+ */
 @Entity(tableName = "books_publishers")
-public class BooksPublisher extends BaseEntity implements Timestampable {
+public class BooksPublisher extends BaseEntity {
     public BooksItem booksItem;
     public String title;
 }

@@ -2,12 +2,13 @@ package lt.alius.library.entities;
 
 import lt.alius.library.libraries.BaseEntity;
 import lt.alius.library.libraries.Entity;
-import lt.alius.library.libraries.interfaces.Timestampable;
+import lt.alius.library.libraries.EntityArrayList;
 
-import java.util.ArrayList;
-
+/**
+ * Knygos autoriaus entity.
+ */
 @Entity(tableName = "books_authors")
-public class BooksAuthor extends BaseEntity implements Timestampable {
+public class BooksAuthor extends BaseEntity {
     public String author;
-    public ArrayList<BooksItem> booksItems;
+    public EntityArrayList<BooksItem> booksItems;
 }

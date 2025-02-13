@@ -7,5 +7,8 @@ import java.lang.annotation.*;
 @Inherited
 @Documented
 public @interface Entity {
+    /**
+     * Raktas JSON faile, pagal kurį randama entity reikšmės.
+     */
     String tableName();
 }

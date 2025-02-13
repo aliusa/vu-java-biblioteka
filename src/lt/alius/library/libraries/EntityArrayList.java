@@ -3,6 +3,11 @@ package lt.alius.library.libraries;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Generic.
+ *
+ * @param <E>
+ */
 public class EntityArrayList<E extends BaseEntity> extends ArrayList<E> {
     private ArrayList<E> entities = new ArrayList<E>();
 

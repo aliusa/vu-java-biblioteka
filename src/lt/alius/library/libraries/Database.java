@@ -14,6 +14,10 @@ public class Database implements DataStorage {
         this.jsonWrapper = new JsonWrapper();
     }
 
+    /**
+     * Singleton Database instance
+     * @return
+     */
     public static synchronized Database getInstance() {
         //Singleton
         if (instance == null) {
