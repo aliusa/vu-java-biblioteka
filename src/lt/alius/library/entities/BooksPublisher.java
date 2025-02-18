@@ -10,4 +10,9 @@ import lt.alius.library.libraries.Entity;
 public class BooksPublisher extends BaseEntity {
     public BooksItem booksItem;
     public String title;
+
+    @Override
+    public String toString() {
+        return "%s".formatted(title);
+    }
 }

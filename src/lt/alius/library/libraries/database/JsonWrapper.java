@@ -126,8 +126,7 @@ public class JsonWrapper extends DatabaseWrapper {
             } else {
                 list = new EntityArrayList<T>();
             }
-            int newId = list.isEmpty() ? 1 : list.get(list.size() - 1).id + 1;
-            entity.id = newId;
+            entity.id = list.getLatestId() + 1;
             var formattedDatetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
             entity.created_at = formattedDatetime;
             entity.updated_at = formattedDatetime;

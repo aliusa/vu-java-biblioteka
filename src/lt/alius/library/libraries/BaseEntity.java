@@ -9,12 +9,5 @@ public abstract class BaseEntity {
         return id;
     }
 
-
-    //todo: prideti abstract metodus, kuri implementuotu childai ir kazkas naudotu ta metoda
-
-
-    @Override
-    public String toString() {
-        return "[%s]".formatted(id);
-    }
+    public abstract String toString();
 }

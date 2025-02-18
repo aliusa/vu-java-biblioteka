@@ -19,4 +19,9 @@ public class AdministratorsUser extends BaseEntity implements Identifiable {
     public String getIdentifierValue() {
         return email;
     }
+
+    @Override
+    public String toString() {
+        return "%s".formatted(email);
+    }
 }

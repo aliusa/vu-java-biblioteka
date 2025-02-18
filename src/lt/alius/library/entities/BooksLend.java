@@ -18,4 +18,9 @@ public class BooksLend extends BaseEntity {
     public boolean isNowLended() {
         return lendStart != null && lendEnd != null;
     }
+
+    @Override
+    public String toString() {
+        return "[#%s]".formatted(id);
+    }
 }

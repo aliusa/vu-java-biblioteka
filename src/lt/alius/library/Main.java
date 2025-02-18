@@ -42,19 +42,19 @@ public class Main {
         switch (response) {
             case "1":
                 EntityArrayList<BooksItem> booksItems = Database.getInstance().getList(BooksItem.class);
-                System.out.println(Arrays.toString(booksItems.toArray()));//combine all books to single string
+                //System.out.println(Arrays.toString(booksItems.toArray()));//combine all books to single string
                 //for (BooksItem booksItem : booksItems) {
                 //    System.out.println(booksItem.toString());
                 //}
                 System.out.printf("%n%n");
 
-                System.out.printf("-".repeat(57) + "%n");
-                System.out.printf("| %-4s | %-26s | %-17s |%n", "ID", "Pavadinimas", "ISBN");
-                System.out.printf("-".repeat(57) + "%n");
+                System.out.printf("-".repeat(70) + "%n");
+                System.out.printf("| %-4s | %-26s | %-17s | %-10s |%n", "ID", "Pavadinimas", "ISBN", "Puslapiai");
+                System.out.printf("-".repeat(70) + "%n");
                 for (BooksItem booksItem : booksItems) {
-                    System.out.printf("| %-4s | %-26s | %-17s |%n", booksItem.id, booksItem.title, booksItem.isbn);
+                    System.out.printf("| %-4s | %-26s | %-17s | %-10s |%n", booksItem.getId(), booksItem.title, booksItem.isbn, booksItem.pages);
                 }
-                System.out.printf("-".repeat(57));
+                System.out.printf("-".repeat(70));
 
                 break;
             case "2":
@@ -65,14 +65,14 @@ public class Main {
                 System.out.printf("-".repeat(50) + "%n");
                 for (UsersItem usersItem : usersItems) {
                     //System.out.println(usersItem.toString());
-                    System.out.printf("| %-4s | %-24s | %-12s |%n", usersItem.id, usersItem.email, usersItem.phone);
+                    System.out.printf("| %-4s | %-24s | %-12s |%n", usersItem.getId(), usersItem.email, usersItem.phone);
                 }
                 System.out.printf("-".repeat(50));
                 break;
             case "3":
                 booksItems = Database.getInstance().getList(BooksItem.class);
                 for (BooksItem booksItem1 : booksItems) {
-                    System.out.printf("#%s - %s%n", booksItem1.id, booksItem1.getLendedNowCount());
+                    System.out.printf("#%s - %s%n", booksItem1.getId(), booksItem1.getLendedNowCount());
                 }
                 System.out.println("Dabar išduotų knygų kiekis: ");//todo
                 break;
@@ -80,7 +80,7 @@ public class Main {
                 BooksItem booksItem = new BooksItem();
                 booksItem.title = "Book Title " + new Random().nextInt(1000, Integer.MAX_VALUE);
                 booksItem.isbn = Utilities.generateIsbn();
-                booksItem.pages = 15;
+                booksItem.pages = new Random().nextInt(1, 500);
                 try {
                     Database.getInstance().add(booksItem);
                 } catch (FileNotFoundException e) {

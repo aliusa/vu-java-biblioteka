@@ -1,7 +1,9 @@
 package lt.alius.library.libraries;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Generic.
@@ -9,22 +11,37 @@ import java.util.Arrays;
  * @param <E>
  */
 public class EntityArrayList<E extends BaseEntity> extends ArrayList<E> {
-    private ArrayList<E> entities = new ArrayList<E>();
 
-    public ArrayList<E> getAll() {
-        //todo: todofix kad imtu jau sukurta
-        for (int i = 0; i < size(); i++) {
-            E element = super.get(i);
-            entities.add(element);
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
+    // Surasti objektą pagal ID
+    public E findById(int id) {
+        for (E entity : this) {
+            if (entity.getId() == id) {
+                return entity;
+            }
         }
-        return entities;
+        return null;
     }
 
-    @Override
-    public Object[] toArray() {
-        return Arrays.copyOf(getAll().toArray(), size());
-        //return super.toArray();
+    public boolean removeById(int id) {
+        return this.removeIf(entity -> entity.getId() == id);
     }
 
-    //todo: kazkoki kita metoda sugalvoti. Kad butu realus, prasmingas
+    public boolean existsById(int id) {
+        return this.stream().anyMatch(entity -> entity.getId() == id);
+    }
+
+    public String toJson() {
+        try {
+            return objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "[]";
+        }
+    }
+
+    public Integer getLatestId() {
+        return this.isEmpty() ? null : this.get(this.size() - 1).getId();
+    }
 }

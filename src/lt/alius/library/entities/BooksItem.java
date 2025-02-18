@@ -2,8 +2,8 @@ package lt.alius.library.entities;
 
 import lt.alius.library.libraries.BaseEntity;
 import lt.alius.library.libraries.Entity;
+import lt.alius.library.libraries.EntityArrayList;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -14,8 +14,8 @@ public class BooksItem extends BaseEntity {
     public String title;
     public String isbn;
     public int pages;
-    private ArrayList<BooksItemCopy> booksItemCopies;
-    private ArrayList<BooksAuthor> booksAuthors;
+    private EntityArrayList<BooksItemCopy> booksItemCopies;
+    private EntityArrayList<BooksAuthor> booksAuthors;
 
     public BooksItem() {
         //
@@ -24,7 +24,7 @@ public class BooksItem extends BaseEntity {
         this.title = title;
     }
 
-    public ArrayList<BooksItemCopy> getBooksItemCopies() {
+    public EntityArrayList<BooksItemCopy> getBooksItemCopies() {
         return booksItemCopies;
     }
 

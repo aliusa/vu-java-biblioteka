@@ -11,4 +11,9 @@ import lt.alius.library.libraries.EntityArrayList;
 public class BooksAuthor extends BaseEntity {
     public String author;
     public EntityArrayList<BooksItem> booksItems;
+
+    @Override
+    public String toString() {
+        return "%s".formatted(author);
+    }
 }
