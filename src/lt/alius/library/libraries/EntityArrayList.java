@@ -3,7 +3,9 @@ package lt.alius.library.libraries;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Generic.
@@ -43,5 +45,15 @@ public class EntityArrayList<E extends BaseEntity> extends ArrayList<E> {
 
     public Integer getLatestId() {
         return this.isEmpty() ? null : this.get(this.size() - 1).getId();
+    }
+
+    @Override
+    public boolean add(E entity) {
+        if (entity.getId() == null) {
+            entity.setId(this.getLatestId() + 1);
+            var formattedDatetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            entity.created_at = entity.updated_at = formattedDatetime;
+        }
+        return super.add(entity);
     }
 }

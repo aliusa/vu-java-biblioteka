@@ -126,16 +126,12 @@ public class JsonWrapper extends DatabaseWrapper {
             } else {
                 list = new EntityArrayList<T>();
             }
-            entity.setId(list.getLatestId() + 1);
-            var formattedDatetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-            entity.created_at = formattedDatetime;
-            entity.updated_at = formattedDatetime;
             list.add(entity);
             jsonData.put(tableName, list);
 
 
             //Save to file in thread
-            Thread  thread = new Thread(() -> {
+            Thread thread = new Thread(() -> {
                 // Write updated data back to the file
                 try {
                     objectMapper.enable(SerializationFeature.INDENT_OUTPUT).writerWithDefaultPrettyPrinter().writeValue(file, jsonData);
