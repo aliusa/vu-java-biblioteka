@@ -1,9 +1,13 @@
 package lt.alius.library.libraries;
 
 public abstract class BaseEntity {
-    public Integer id = null;
+    protected Integer id = null;
     public String created_at = null;
     public String updated_at = null;
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;

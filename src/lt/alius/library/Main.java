@@ -40,13 +40,14 @@ public class Main {
 
         String response = scanner.next();
         switch (response) {
+            case "":
+                System.out.printf("%n");
             case "1":
                 EntityArrayList<BooksItem> booksItems = Database.getInstance().getList(BooksItem.class);
                 //System.out.println(Arrays.toString(booksItems.toArray()));//combine all books to single string
                 //for (BooksItem booksItem : booksItems) {
                 //    System.out.println(booksItem.toString());
                 //}
-                System.out.printf("%n%n");
 
                 System.out.printf("-".repeat(70) + "%n");
                 System.out.printf("| %-4s | %-26s | %-17s | %-10s |%n", "ID", "Pavadinimas", "ISBN", "Puslapiai");
@@ -87,7 +88,7 @@ public class Main {
                     //throw new RuntimeException(e);
                     System.out.println("Failed to add BooksItem to JSON.");
                 } finally {
-                    System.out.println(booksItem);
+                    System.out.println(booksItem.toString());
                     System.out.println("Database operation completed.");
                     booksItem = null;
                 }

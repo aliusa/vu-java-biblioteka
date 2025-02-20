@@ -103,7 +103,7 @@ public class JsonWrapper extends DatabaseWrapper {
             return 1;
         }
         T item = items.get(items.size() - 1);
-        return item.id;
+        return item.getId();
     }
 
     @Override
@@ -126,7 +126,7 @@ public class JsonWrapper extends DatabaseWrapper {
             } else {
                 list = new EntityArrayList<T>();
             }
-            entity.id = list.getLatestId() + 1;
+            entity.setId(list.getLatestId() + 1);
             var formattedDatetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
             entity.created_at = formattedDatetime;
             entity.updated_at = formattedDatetime;
@@ -169,7 +169,7 @@ public class JsonWrapper extends DatabaseWrapper {
     // Universalus metodas rasti objektą pagal ID
     public <T extends BaseEntity> Optional<T> getById(Class<T> entityClass, int id) {
         return getList(entityClass).stream()
-                .filter(entity -> entity.id == id)
+                .filter(entity -> entity.getId() == id)
                 .findFirst();
     }
 }
