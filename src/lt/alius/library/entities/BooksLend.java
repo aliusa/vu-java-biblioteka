@@ -15,12 +15,16 @@ public class BooksLend extends BaseEntity {
     public Date lendStart;
     public Date lendEnd;
 
-    public boolean isNowLended() {
+    /*@ public normal_behavior
+      @   assignable \nothing;
+      @   ensures \result <==> (lendStart != null && lendEnd != null);
+      @*/
+    public /*@ pure @*/ boolean isNowLended() {
         return lendStart != null && lendEnd != null;
     }
 
     @Override
-    public String toString() {
+    public /*@ pure @*/ String toString() {
         return "[#%s]".formatted(id);
     }
 }

@@ -19,6 +19,7 @@ public class Main {
 
     public static Thread thread = new Thread(new Runnable());
 
+    //@ skipesc
     public static void main(String[] args) {
 
         //Start thread only on first run
@@ -38,7 +39,13 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        String response = scanner.next();
+        String response = "";
+        if (scanner.hasNext()) {
+            response = scanner.next();
+        } else {
+            return;
+        }
+
         switch (response) {
             case "":
                 System.out.printf("%n");
