@@ -84,8 +84,9 @@ public class BooksItem extends BaseEntity {
     }
 
     /*@ public normal_behavior
-      @ assignable \nothing;
-      @ ensures \result >= 0;
+      @   requires booksItemCopies == null || booksItemCopies.size() >= 0;
+      @   assignable \nothing;
+      @   ensures \result >= 0;
       @*/
     public /*@ pure @*/ int getLendedNowCount() {
         int count = 0;
@@ -94,20 +95,37 @@ public class BooksItem extends BaseEntity {
             //@ loop_invariant 0 <= count;
             for (int i = 0; i < booksItemCopies.size(); i++) {
                 //@ assume i >= 0;
-                //@ assume i <= booksItemCopies.size();
+                //@ assume i < booksItemCopies.size();
 
                 BooksItemCopy booksItemCopy = booksItemCopies.get(i);
 
                 if (booksItemCopy != null && booksItemCopy.booksLends != null) {
                     int add = countNowLended(booksItemCopy.booksLends);
+                    int all = countAllLendsSpec(booksItemCopy.booksLends);
+
+                    //@ assume all >= add;
                     //@ assume add >= 0;
                     //@ assume count <= Integer.MAX_VALUE - add;
+
                     count = count + add;
                 }
             }
         }
 
         return count;
+    }
+
+    /*@ public normal_behavior
+      @   requires lends != null;
+      @   assignable \nothing;
+      @   ensures \result >= 0;
+      @*/
+    public static /*@ pure @*/ int countAllLendsSpec(BooksLend[] lends) {
+        //@ assume lends.length >= 0;
+
+        //@ assume (\sum int i; 0 <= i && i < lends.length; 1) >= 0;
+
+        return lends.length;
     }
 
     /*@ public normal_behavior
